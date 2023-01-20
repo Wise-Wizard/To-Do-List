@@ -1,4 +1,5 @@
 import React from "react";
+import Task from "./Task";
 
 function App() {
   const [newTask, setTask] = React.useState("");
@@ -16,6 +17,13 @@ function App() {
     setTask("");
   }
 
+  function deleteTask(id) {
+    setArray((prevItems) => {
+      return prevItems.filter((item, index) => {
+        return index !== id;
+      });
+    });
+  }
   return (
     <div className="container">
       <div className="heading">
@@ -34,8 +42,10 @@ function App() {
       </div>
       <div>
         <ul>
-          {taskArray.map((task) => {
-            return <li>{task}</li>;
+          {taskArray.map((task, index) => {
+            return (
+              <Task key={index} id={index} taskName={task} click={deleteTask} />
+            );
           })}
           <li>{newTask}</li>
         </ul>
